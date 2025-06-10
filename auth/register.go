@@ -1,9 +1,17 @@
 package auth
 
 import (
+	"crypto/md5"
 	"fgo24-go-auth-flow/utils"
 	"fmt"
 )
+
+func encode(pass string) string {
+	hash := md5.New()
+	_, _ = hash.Write([]byte(pass))
+	md5 := hash.Sum(nil)
+	return fmt.Sprintf("%x", md5)
+}
 
 func Register(users *[]utils.User) {
 	for {
@@ -16,6 +24,7 @@ func Register(users *[]utils.User) {
 			if errPass != nil || password == "" {
 				fmt.Println("Password tidak valid! Silakan coba lagi")
 			} else {
+				password = encode(password)
 				user := utils.User{
 					Name:     name,
 					Password: password,

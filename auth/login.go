@@ -5,9 +5,10 @@ import (
 	"fmt"
 )
 
-func checkPass(pass string, users []utils.User) bool {
+func checkPass(pass string, name string, users []utils.User) bool {
+	pass = encode(pass)
 	for i := range users {
-		if users[i].Password == pass {
+		if users[i].Name == name && users[i].Password == pass {
 			return true
 		}
 	}
@@ -28,24 +29,22 @@ func loginSuccess() {
 	}
 }
 
-func Login(users []utils.User) {
+func Login(users *[]utils.User) {
 	for {
-		if len(users) < 1 {
+		if len(*users) < 1 {
 			fmt.Println("\nBelum ada akun yang terdaftar!")
 			return
 		}
 		fmt.Println("\n-----Menu Login-----")
 		name, errName := utils.GetInputString("Silakan masukkan nama anda: ")
-		if errName != nil || name == "" {
-			fmt.Println("Nama tidak valid! Silakan coba lagi")
-		} else if checkUser(name, users) {
-			password, errPass := utils.GetInputString("Silakan masukkan password anda: ")
-			if errPass != nil || password == "" {
-				fmt.Println("Password tidak valid! Silakan coba lagi")
-			} else if checkPass(password, users) {
-				loginSuccess()
-				return
-			}
+		password, errPass := utils.GetInputString("Silakan masukkan password anda: ")
+		if errName != nil || errPass != nil || name == "" || password == "" {
+			fmt.Println("Data input tidak valid! Silakan coba lagi")
+		} else if checkPass(password, name, *users) {
+			loginSuccess()
+			return
+		} else {
+			fmt.Println("Nama dan/atau Password salah! Silakan coba lagi")
 		}
 	}
 }
