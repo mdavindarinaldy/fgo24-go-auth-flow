@@ -5,16 +5,6 @@ import (
 	"fmt"
 )
 
-func checkPass(pass string, name string, users []utils.User) bool {
-	pass = encode(pass)
-	for i := range users {
-		if users[i].Name == name && users[i].Password == pass {
-			return true
-		}
-	}
-	return false
-}
-
 func loginSuccess() {
 	for {
 		fmt.Println("Berhasil login!")
@@ -29,7 +19,7 @@ func loginSuccess() {
 	}
 }
 
-func Login(users *[]utils.User) {
+func Login(users *[]User) {
 	for {
 		if len(*users) < 1 {
 			fmt.Println("\nBelum ada akun yang terdaftar!")

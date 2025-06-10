@@ -17,12 +17,12 @@ func main() {
 		} else if option == 4 {
 			os.Exit(0)
 		} else if option == 1 {
-			auth.Login(&utils.Users)
+			auth.Login(&auth.Users)
 		} else if option == 2 {
-			auth.Register(&utils.Users)
-			fmt.Println(utils.Users)
+			auth.Register(&auth.Users)
+			fmt.Println(auth.Users)
 		} else if option == 3 {
-			auth.ForgotPassword(&utils.Users)
+			auth.ForgotPassword(&auth.Users)
 		}
 	}
 }

@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func ForgotPassword(users *[]utils.User) {
+func ForgotPassword(users *[]User) {
 	for {
 		if len(*users) < 1 {
 			fmt.Println("\nBelum ada akun yang terdaftar!")

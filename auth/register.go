@@ -13,27 +13,23 @@ func encode(pass string) string {
 	return fmt.Sprintf("%x", md5)
 }
 
-func Register(users *[]utils.User) {
+func Register(users *[]User) {
 	for {
 		fmt.Println("\n-----Menu Registrasi-----")
 		name, errName := utils.GetInputString("Silakan masukkan nama anda: ")
-		if errName != nil || name == "" {
-			fmt.Println("Nama tidak valid! Silakan coba lagi")
+		password, errPass := utils.GetInputString("Silakan masukkan password anda: ")
+		if errName != nil || errPass != nil || name == "" || password == "" {
+			fmt.Println("Data tidak valid! Silakan coba lagi")
 		} else {
-			password, errPass := utils.GetInputString("Silakan masukkan password anda: ")
-			if errPass != nil || password == "" {
-				fmt.Println("Password tidak valid! Silakan coba lagi")
-			} else {
-				password = encode(password)
-				user := utils.User{
-					Name:     name,
-					Password: password,
-				}
-				*users = append(*users, user)
-				fmt.Println("Pendaftaran akun berhasil")
-				fmt.Println("-------------------------")
-				return
+			password = encode(password)
+			u := User{
+				Name:     name,
+				Password: password,
 			}
+			u.addUser(users)
+			fmt.Println("Pendaftaran akun berhasil")
+			fmt.Println("-------------------------")
+			return
 		}
 	}
 }
