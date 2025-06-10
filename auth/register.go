@@ -22,12 +22,12 @@ func Register(users *[]User) {
 			fmt.Println("Data tidak valid! Silakan coba lagi")
 		} else {
 			password = encode(password)
-			// var data dataUser
 			u := User{
 				Name:     name,
 				Password: password,
 			}
-			u.addUser(users)
+			// u.addUser(users) // method
+			showData(u, users) // interface
 			fmt.Println("Pendaftaran akun berhasil")
 			fmt.Println("-------------------------")
 			return

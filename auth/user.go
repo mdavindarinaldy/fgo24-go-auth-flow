@@ -1,8 +1,7 @@
 package auth
 
 type dataUser interface {
-	addUser()
-	removeUser()
+	addUser(users *[]User)
 }
 
 type User struct {
@@ -12,10 +11,10 @@ type User struct {
 
 var Users []User
 
-func (u User) addUser(Users *[]User) {
-	*Users = append(*Users, u)
+func showData(du dataUser, users *[]User) {
+	du.addUser(users)
 }
 
-func (u User) removeUser(Users *[]User) {
-	// kode hapus user
+func (u User) addUser(Users *[]User) {
+	*Users = append(*Users, u)
 }
